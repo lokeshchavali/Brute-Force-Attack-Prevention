@@ -23,7 +23,7 @@ This repository contains the college project report and the research paper demon
 ---
 
 ## 📂 Repository Contents
-
+```
 Brute-Force-Attack-Prevention/
 ├─ README.md
 ├─ Network Security PROJECT.pdf
@@ -35,9 +35,7 @@ Brute-Force-Attack-Prevention/
 ├─ docs/
 │ └─ diagrams.png
 └─ LICENSE
-
-yaml
-Copy code
+```
 
 **Files included:**  
 - `Network Security PROJECT.pdf` — college project report (detailed steps & screenshots).  
@@ -63,21 +61,21 @@ Brute force attacks are typically automated and rely on repeated login attempts 
 > These commands and snippets assume a Debian-based distribution (Kali, Ubuntu). Run as root or prefix `sudo` where needed.
 
 ### 1. System update
-bash
+```bash
 sudo apt update && sudo apt upgrade -y
+```
 2. Install required packages
-bash
-Copy code
+```bash
 sudo apt install fail2ban ufw libpam-google-authenticator -y
+```
 3. Fail2Ban: basic setup
-Copy default configuration to a local file:
-
-bash
-Copy code
+   1. Copy default configuration to a local file:
+```bash
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-Edit /etc/fail2ban/jail.local and ensure SSH section is configured:
+```
+   2.Edit /etc/fail2ban/jail.local and ensure SSH section is configured:
 
-ini
+```ini
 Copy code
 [sshd]
 enabled = true
@@ -87,22 +85,22 @@ logpath = /var/log/auth.log
 maxretry = 3
 bantime = 600
 findtime = 300
-Restart and enable the service:
+```
+  3.Restart and enable the service:
 
-bash
-Copy code
+```bash
 sudo systemctl restart fail2ban
 sudo systemctl enable fail2ban
-Check Fail2Ban status for sshd:
+```
+  4.Check Fail2Ban status for sshd:
 
-bash
-Copy code
+```bash
 sudo fail2ban-client status sshd
+```
 Notes: Adjust maxretry, bantime, and findtime based on your environment. For production, consider longer ban periods or evolving ban strategies.
 
 4. UFW: firewall and rate-limiting
-bash
-Copy code
+```bash
 # install (if not already installed)
 sudo apt install ufw -y
 
@@ -119,67 +117,67 @@ sudo ufw enable
 
 # verify
 sudo ufw status verbose
+```
 5. TCP Wrappers (optional / host-based allow)
 Edit /etc/hosts.allow:
 
-makefile
-Copy code
+```makefile
 sshd: 192.168.1.100, 203.0.113.45
+```
 Edit /etc/hosts.deny:
 
-makefile
-Copy code
+```makefile
 sshd: ALL
+```
 Warning: TCP Wrappers only work for services compiled with libwrap support. For many modern setups, rely primarily on UFW/iptables and SSH configuration.
 
 6. Google Authenticator (2FA) setup
-Install PAM module (done above with package install).
+   1.Install PAM module (done above with package install).
+   2.For each user who needs 2FA, run:
 
-For each user who needs 2FA, run:
-
-bash
-Copy code
+```bash
 google-authenticator
+```
 Follow prompts to set up TOTP, save emergency codes and scan the QR code with an authenticator app.
 
-Update PAM configuration for SSH: edit /etc/pam.d/sshd and add:
+  3.Update PAM configuration for SSH: edit /etc/pam.d/sshd and add:
 
-swift
-Copy code
+```swift
 auth required pam_google_authenticator.so
-Update SSH configuration: edit /etc/ssh/sshd_config
+```
+   4.Update SSH configuration: edit /etc/ssh/sshd_config
 
-nginx
-Copy code
+```nginx
 ChallengeResponseAuthentication yes
 UsePAM yes
 PasswordAuthentication yes   # Keep or change depending on policy
-Restart SSH:
+```
+  5.Restart SSH:
 
-bash
-Copy code
+```bash
 sudo systemctl restart ssh
+```
 Important: Test 2FA on a non-critical account first. Keep a separate admin console or IP to avoid locking yourself out.
 
 🧪 How to Test & Validate
 Test Fail2Ban
 From another machine, attempt SSH with wrong credentials multiple times:
 
-bash
-Copy code
+```bash
 ssh user@server-ip
 # intentionally enter wrong password 3+ times
+```
 On server, check banned IPs:
 
-bash
-Copy code
+```bash
 sudo fail2ban-client status sshd
+```
 Test UFW rate-limiting
 Attempt rapid connections and observe UFW blocking/rate-limiting behavior:
 
-bash
-Copy code
+```bash
 sudo ufw status verbose
+```
 Test 2FA
 Attempt normal SSH login: after password prompt you should be asked for the TOTP code from your authenticator app.
 
@@ -191,8 +189,7 @@ Logs to monitor
 🧩 Sample scripts & config snippets
 scripts/sample_jail.local
 
-ini
-Copy code
+```ini
 [sshd]
 enabled = true
 port = ssh
@@ -201,10 +198,10 @@ logpath = /var/log/auth.log
 maxretry = 3
 bantime = 3600   # 1 hour
 findtime = 600
+```
 scripts/setup_fail2ban.sh (example)
 
-bash
-Copy code
+```bash
 #!/bin/bash
 sudo apt update
 sudo apt install -y fail2ban
@@ -213,6 +210,7 @@ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 sudo cp ./scripts/sample_jail.local /etc/fail2ban/jail.d/custom.conf
 sudo systemctl restart fail2ban
 sudo systemctl enable fail2ban
+```
 📌 Best Practices & Tips
 Always keep a recovery method: Console access, out-of-band admin, or whitelisted IP to avoid lockout.
 

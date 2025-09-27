@@ -63,7 +63,7 @@ Brute force attacks are typically automated and rely on repeated login attempts 
 > These commands and snippets assume a Debian-based distribution (Kali, Ubuntu). Run as root or prefix `sudo` where needed.
 
 ### 1. System update
-```bash
+bash
 sudo apt update && sudo apt upgrade -y
 2. Install required packages
 bash

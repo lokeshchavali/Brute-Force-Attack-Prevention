@@ -251,7 +251,7 @@ You are welcome to fork this repository and adapt scripts for your environment.
 
 If you reuse code or scripts in academic submissions, please cite this repository and list collaborators/mentors where appropriate.
 
-✉️ Contact
+###✉️ Contact
 Author: Lokesh
 Email: chavalilokesh7@gmail.com
 GitHub: https://github.com/lokeshchavali

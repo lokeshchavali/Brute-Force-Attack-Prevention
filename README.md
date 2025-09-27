@@ -210,6 +210,7 @@ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 sudo cp ./scripts/sample_jail.local /etc/fail2ban/jail.d/custom.conf
 sudo systemctl restart fail2ban
 sudo systemctl enable fail2ban
+
 ```
 📌 Best Practices & Tips
 Always keep a recovery method: Console access, out-of-band admin, or whitelisted IP to avoid lockout.
@@ -223,30 +224,27 @@ Monitor regularly: Keep an eye on logs and banned IP lists. Correlate with other
 Backup configs: Keep copies of jail.local, sshd_config and other important files.
 
 Educate users about strong passwords and 2FA usage.
+
 ---
 
 ⚠️ Troubleshooting
 I locked myself out after enabling 2FA
-
 Access server via console or from a whitelisted IP and remove the pam_google_authenticator line from /etc/pam.d/sshd, restart SSH, then reconfigure carefully.
 
 Fail2Ban not banning IPs
-
 Check logs: /var/log/fail2ban.log and /var/log/auth.log.
-
 Ensure logpath in jail.local points to the correct auth log on your distro.
-
 Confirm the filter (e.g., sshd) matches the log patterns.
 
 UFW rules not applied
-
 Run sudo ufw status verbose to see active rules.
-
 Ensure no other firewall manager (like iptables managed elsewhere) conflicts.
+
 ---
 
 📜 License
 This project is provided under the MIT License. See LICENSE file for full terms.
+
 ---
 
 🤝 Contribution & Academic Use

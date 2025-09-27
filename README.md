@@ -247,12 +247,6 @@ This project is provided under the MIT License. See LICENSE file for full terms.
 
 ---
 
-🤝 Contribution & Academic Use
-You are welcome to fork this repository and adapt scripts for your environment.
-
-If you reuse code or scripts in academic submissions, please cite this repository and list collaborators/mentors where appropriate.
----
-
 ## 👨‍💻 Developed by
 **Chavali Lokesh**  
 - B.Tech CSE @ VIT-AP  

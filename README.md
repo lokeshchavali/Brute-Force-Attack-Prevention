@@ -223,6 +223,7 @@ Monitor regularly: Keep an eye on logs and banned IP lists. Correlate with other
 Backup configs: Keep copies of jail.local, sshd_config and other important files.
 
 Educate users about strong passwords and 2FA usage.
+---
 
 ⚠️ Troubleshooting
 I locked myself out after enabling 2FA
@@ -242,16 +243,18 @@ UFW rules not applied
 Run sudo ufw status verbose to see active rules.
 
 Ensure no other firewall manager (like iptables managed elsewhere) conflicts.
+---
 
 📜 License
 This project is provided under the MIT License. See LICENSE file for full terms.
+---
 
 🤝 Contribution & Academic Use
 You are welcome to fork this repository and adapt scripts for your environment.
 
 If you reuse code or scripts in academic submissions, please cite this repository and list collaborators/mentors where appropriate.
+---
 
-###✉️ Contact
-Author: Lokesh
-Email: chavalilokesh7@gmail.com
-GitHub: https://github.com/lokeshchavali
+## 👨‍💻 Developed by
+**Chavali Lokesh**  
+- B.Tech CSE @ VIT-AP  
